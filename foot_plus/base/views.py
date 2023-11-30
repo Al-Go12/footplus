@@ -217,7 +217,7 @@ def admin_login(request):
              messages.error(request, "Invalid admin credentials!")
 
 
-    return render(request, 'ADMIN/login.html')
+    return render(request, 'admin/login.html')
 
 
 def admin_logout(request):
