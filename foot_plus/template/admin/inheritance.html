@@ -1,0 +1,263 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:35 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'admin_assets/imgs/theme/foot.jpg' %}">
+    <!-- Template CSS -->
+    <link href="{% static 'admin_assets/css/main.css' %}" rel="stylesheet" type="text/css" />
+       
+
+   
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="{% static 'admin_assets/imgs/theme/foot.jpg' %}" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+           
+            <ul class="menu-aside">
+
+                
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="{% url 'catagorie:dashboard' %}"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span></a>
+
+                        <div class="submenu">
+                        <a href="{% url 'catagorie:dashboard' %}">Dashboard</a>
+                        <a href="{% url 'catagorie:sales_report' %}">sales report</a>
+                        <a href="{% url 'catagorie:reports' %}">reports</a>
+            
+                        
+                    </div>
+                    </a>
+                </li>   
+
+                
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="{% url 'catagorie:product_list' %}"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="{% url 'catagorie:product_list' %}">Product List</a>
+                        <a href="{% url 'catagorie:add_product' %}">Add Product </a>
+            
+                        
+                    </div>
+                </li>
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="{% url 'store:add_banner' %}">Add Banner</a>
+                        <a href="{% url 'store:display' %}">Banner List</a>
+                        
+                    </div>
+                </li>
+                  </li>   
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#">  <i class="icon material-icons md-store"></i>
+                       
+                        <span class="text">Categories</span>
+
+                        </a>
+                        <div class="submenu">
+                            <a href="{% url 'catagorie:catogory_list' %}">Categories</a>
+                            <a href="{% url 'catagorie:add_catogory' %}">Add Categories</a>
+                        </div>
+                    </a>
+                </li>
+             
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="{% url 'catagorie:order_list' %}">Order List</a>
+                        <a href="page-transactions-2.html">Status</a>
+                    </div>
+                </li>
+           
+
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="{% url 'catagorie:user_list' %}">User list</a>
+                        
+                    </div>
+                </li>
+
+                
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Varients</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="{% url 'catagorie:variant-list' %}">varient list</a>
+                        <a href="">Add varient</a>
+                        
+                    </div>
+                </li>
+
+            
+                <li class="menu-item has-submenu has-submenu">
+                    <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Brands</span> </a>
+                        <div class="submenu">
+                            <a href="{% url 'catagorie:brand_list' %}">Brand list</a>
+                            <a href="{% url 'catagorie:add_brand' %}">Add-Brands</a>
+                            
+                        </div>
+                         </li>
+
+            
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">coupons</span></a>
+                        <div class="submenu">
+                            <a href="{% url 'catagorie:list_coupons' %}">coupon list</a>
+                            <a href="{% url 'catagorie:add_coupon' %}">Add coupon </a>  
+                        </div>
+                    
+                </li>
+            </ul>
+            <hr>
+        </nav>
+    </aside>
+
+
+
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+               
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                            <a class="dropdown-item text-brand" href="#"><img src="{% static 'admin_assets/imgs/theme/flag-us.png' %}" alt="English">English</a>
+                            <a class="dropdown-item" href="#"><img src="{% static 'admin_assets/imgs/theme/flag-fr.png' %}" alt="Français">Français</a>
+                            <a class="dropdown-item" href="#"><img src="{% static 'admin_assets/imgs/theme/flag-jp.png' %}" alt="Français">日本語</a>
+                            <a class="dropdown-item" href="#"><img src="{% static 'admin_assets/imgs/theme/flag-cn.png' %}" alt="Français">中国人</a>
+                        </div>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="{% static 'admin_assets/imgs/people/avatar2.jpg' %}" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="{% url 'base:alogout' %}"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Content specific to each page will be inserted here -->
+            {% block content %}
+
+            {% endblock %}
+
+
+
+
+
+
+
+
+        
+    </main>
+    <footer class="main-footer font-xs bg-light py-2  mt-auto" >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>
+                       document.write( new Date().getFullYear())
+                    </script> ©, Evara - HTML Ecommerce Template .
+                </div>
+                <div class="col-sm-6 text-sm-end">
+                    All rights reserved
+                </div>
+            </div>
+        </div>
+    
+    </footer>
+
+   <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>--> 
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+     <!-- altertify -->
+  
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        alertify.set('notifier','position', 'top-center');
+        {% for msg in messages %}
+    
+            alertify.success('{{msg}}');
+        {%endfor%}
+    </script>
+      
+
+    <script src="{% static 'admin_assets/js/vendors/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'admin_assets/js/vendors/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'admin_assets/js/vendors/select2.min.js' %}"></script>
+    <script src="{% static 'admin_assets/js/vendors/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'admin_assets/js/vendors/jquery.fullscreen.min.js' %}"></script>
+    <script src="{% static 'admin_assets/js/vendors/chart.js' %}"></script>
+    <!-- Main Script -->
+    <script src="{% static 'admin_assets/js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'admin_assets/js/custom-chart.js' %}" type="text/javascript"></script>
+
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:57 GMT -->
+</html>

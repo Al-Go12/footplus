@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OTP Verification</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- alterify -->
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="mt-5 mb-4">OTP Verification</h1>
+                <form method="post"  class="mb-5">
+                    {% csrf_token %}
+                    <p>Enter the OTP sent to your email:</p>
+                    <div class="form-group">
+                        <label for="otp">OTP:</label>
+                        <input type="text" name="otp" class="form-control" required maxlength="4" pattern="[0-9]{4}">
+                    </div>
+                    <a href="{% url 'base:vp' %}">
+                    <button type="submit" class="btn btn-primary">Verify OTP</button>
+                    </a>
+                </form>
+                <a href="{% url 'base:resend_otp' %}"> resend OTP</a>
+            </div>
+        </div>
+    </div>
+
+  <!-- Updated Bootstrap 5 JavaScript Link -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+   <!-- altertify -->
+
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <script>
+      alertify.set('notifier','position', 'top-center');
+      {% for msg in messages %}
+  
+          alertify.success('{{msg}}');
+      {%endfor%}
+		 
+	</script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+
+
+
+
+
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow">Home</a>
+                <span></span> Shoes
+                <span></span> {{products.category}}
+            </div>
+        </div>
+    </div>
+    <section class="mt-50 mb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product-detail accordion-detail">
+                        <div class="row mb-50">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="detail-gallery">
+                                    <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                    <!-- MAIN SLIDES -->
+
+
+
+
+                                    <div class="product-image-slider">
+                                        {% if selected_variants %}
+                                        {% for variant in selected_variants %}
+                                        {% for image in variant.images.all %}
+                                        {% if forloop.counter <= 4 %}
+                                        <figure class="border-radius-10">
+                                            <img src="{{ image.image.url }}" alt="product image">
+                                        </figure>
+                                       {% endif %}
+                                       {% endfor %}
+                                        {% endfor %}
+                                        {% else %}
+                                        {% for image in products.images.all %}
+                                        <figure class="border-radius-10">
+                                            <img src="{{ image.image.url }}" alt="product image">
+                                        </figure>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- THUMBNAILS -->
+                                    <div class="slider-nav-thumbnails pl-15 pr-15">
+                                        {% if selected_variants %}
+                                        {% for variant in selected_variants %}
+                                        {% for image in variant.images.all %}
+                                        <figure class="border-radius-10">
+                                            <img src="{{ image.image.url }}" alt="product image">
+                                        </figure>
+                                        {% endfor %}
+                                        {% endfor %}
+                                        {% else %}
+                                        {% for image in products.images.all %}
+                                        <div>
+                                            <img src="{{ image.image.url }}" alt="product image">
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="detail-info">
+                                    <h2 class="title-detail">{{products.product_name}}</h2>
+                                    <div class="product-detail-rating">
+                                        <div class="pro-details-brand">
+                                            <span> Brands: <a href="shop-grid-right.html">{{products.brand}}</a></span>
+                                        </div>
+                                        <div class="product-rate-cover text-end">
+                                            <div class="product-rate d-inline-block">
+                                                <div class="product-rating" style="width:90%">
+                                                </div>
+                                            </div>
+                                            <span class="font-small ml-5 text-muted"> (25 reviews)</span>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix product-price-cover">
+                                        <div class="product-price primary-color float-left">
+
+
+                                            <ins><span class="text-brand">{{products.price}}</span></ins>
+                                            <ins><span class="old-price font-md ml-15">$200.00</span></ins>
+                                            <span class="save-price  font-md color3 ml-15">25% Off</span>
+                                        </div>
+                                    </div>
+                                    <div class="bt-1 border-color-1 mt-15 mb-15"></div>
+                                    <div class="short-desc mb-30">
+                                        <p>{{products.description}}</p>
+                                    </div>
+
+
+                                    <div class="product_sort_info font-xs mb-30">
+                                        <ul>
+                                            <li class="mb-10"><i class="fi-rs-crown mr-5"></i> 1 Year {{products.brand}} Brand
+                                                Warranty</li>
+                                            <li class="mb-10"><i class="fi-rs-refresh mr-5"></i> 30 Day Return Policy
+                                            </li>
+                                            <li><i class="fi-rs-credit-card mr-5"></i> Cash on Delivery available</li>
+                                        </ul>
+                                    </div>
+
+
+
+
+
+                                    {% if not selected_variants %}
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <strong>Oops!</strong> It looks like you haven't selected a color. Please choose a color to continue.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endif %}
+
+
+                                    <div class="custom-color-selector">
+                                        <form method="get"
+                                            action="{% url 'base:product_detail' product_id=products.product_id %}">
+                                            {% for color in distinct_colors %}
+                                            <a href="{% url 'base:product_detail' product_id=products.product_id %}?selected_color={{ color.color }}"
+                                                style="background-color: {{ color.color }}; width: 20px; height: 20px; display: inline-block; border: 1px solid #000; margin-right: 5px;"></a>
+                                            {% endfor %}
+                                        </form>
+                                    </div>
+                                    {% if selected_variants %}
+                                    <div class="card bg-light mb-4 " style="max-width: 500px;">
+                                        <div class="card-body">
+                                            <h3 class="card-title text-primary">
+                                                Available Shoes with {{ selected_color }} Color:
+                                            </h3>
+                                            <ul class="list-group list-group-flush">
+                                                {% for variant in selected_variants %}
+                                                    <li class="list-group-item mb-2">
+                                                        <span class="text-success font-weight-bold">Size: {{ variant.size }}</span>
+                                                        <span class="text-danger font-weight-bold ms-3">Price: {{ variant.price }}</span>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="attr-detail attr-size">
+                                        <h3 class="mt-1">Select Size:</h3>
+                                        <ul class="list-filter size-filter font-medium">
+                                            {% for variant in selected_variants %}
+                                            <li class="mt-2">
+                                                <a href="#" onclick="selectSize('{{ variant.size }}')"
+                                                    style="font-size: 18px; font-weight: bold;">{{ variant.size }}</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+
+
+
+                                    <ul class="product-meta font-xs color-grey mt-50">
+                                        <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
+                                        <li class="mb-5">Tags: <a href="#" rel="tag">Shoes</a>, <a href="#"
+                                                rel="tag">men</a>, <a href="#" rel="tag">{{products.category}}</a> </li>
+
+                                    </ul>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <form action="{% url 'cart:add_cart' product_id=products.product_id %}" method="get">
+                                    {% csrf_token %}
+                                    <!-- other form fields go here -->
+                                
+                                    <!-- Hidden input fields for selected color and size -->
+                                    <input type="hidden" id="selectedColor" name="color" value="{{ selected_color }}">
+                                    <input type="hidden" id="selectedSize" name="size" value="">
+                                
+                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 mt-20 ml-20"
+                                        style="margin-left: -70px;" type="submit">Add To Cart</button>
+                                </form>
+
+
+
+
+
+
+
+
+                        <!-- Detail Info -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10 m-auto entry-main-content">
+                        <h2 class="section-title style-1 mb-30">Description</h2>
+                        <div class="description mb-50">
+                            <p>Uninhibited carnally hired played in whimpered dear gorilla koala depending and much
+                                yikes off far quetzal goodness and from for grimaced goodness unaccountably and
+                                meadowlark near unblushingly crucial scallop
+                                tightly neurotic hungrily some and dear furiously this apart.</p>
+                            <p>Spluttered narrowly yikes left moth in yikes bowed this that grizzly much hello on
+                                spoon-fed that alas rethought much decently richly and wow against the frequent fluidly
+                                at formidable acceptably flapped
+                                besides and much circa far over the bucolically hey precarious goldfinch mastodon
+                                goodness gnashed a jellyfish and one however because.
+                            </p>
+                            <ul class="product-more-infor mt-30">
+                                <li><span>Type Of Packing</span> Bottle</li>
+                                <li><span>Color</span> Green, Pink, Powder Blue, Purple</li>
+                                <li><span>Quantity Per Case</span> 100ml</li>
+                                <li><span>Ethyl Alcohol</span> 70%</li>
+                                <li><span>Piece In One</span> Carton</li>
+                            </ul>
+                            <hr class="wp-block-separator is-style-dots">
+                            <p>Laconic overheard dear woodchuck wow this outrageously taut beaver hey hello far
+                                meadowlark imitatively egregiously hugged that yikes minimally unanimous pouted
+                                flirtatiously as beaver beheld above forward
+                                energetic across this jeepers beneficently cockily less a the raucously that magic
+                                upheld far so the this where crud then below after jeez enchanting drunkenly more much
+                                wow callously irrespective limpet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+   
+    var selectedSize = "";
+
+   
+    function selectSize(size) {
+        selectedSize = size;
+        document.getElementById('selectedSize').value = size;  // Update the hidden input value
+
+        console.log("Selected Size:", selectedSize);  // Log the selected size for debugging
+    }
+
+    function addToCart() {
+        // Use selectedColor and selectedSize in your logic
+        console.log("Selected Color:", selectedColor);
+        console.log("Selected Size:", selectedSize);
+
+        // Submit the first form
+        document.getElementById('colorForm').submit();
+    }
+</script>
+
+
+{% endblock %}
+<script>
+    function submitColorForm(color) {
+        document.getElementById('colorForm').action += `?selected_color=${color}`;
+        document.getElementById('colorForm').submit();
+    }
+</script>

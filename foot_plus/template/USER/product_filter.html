@@ -1,0 +1,206 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-lg-12">
+    <form method="GET" action="{% url 'orders:product_list' %}" onsubmit="return validatePriceRange()">
+        <div class="shop-product-fillter-header row">
+            <div class="col-lg-3 mb-lg-0 mb-md-5 mb-sm-5">
+                <h5 class="mb-20 text-colorful">Categories</h5>
+                <select name="category" class="colorful-select">
+                    <option value="" {% if not selected_category %}selected{% endif %}>All</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if selected_category and selected_category.id == category.id %}selected{% endif %}>
+                            {{ category.category_name }}
+                        </option>
+                    {% endfor %}
+                    <!-- Add more categories if needed -->
+                </select>
+            </div>
+            <div class="col-lg-3 mb-lg-0 mb-md-5 mb-sm-5">
+                <h5 class="mb-20 text-colorful">Manufacturers</h5>
+                <select name="brand" class="colorful-select">
+                    <option value="" {% if not selected_brand %}selected{% endif %}>All</option>
+                    {% for brand in brands %}
+                        <option value="{{ brand.id }}" {% if selected_brand and selected_brand.id == brand.id %}selected{% endif %}>
+                            {{ brand.brand_name }}
+                        </option>
+                    {% endfor %}
+                    <!-- Add more brands if needed -->
+                </select>
+            </div>
+            <div class="col-lg-3 mb-lg-0 mb-md-5 mb-sm-5">
+                <h5 class="mb-20 text-colorful">Price Range</h5>
+                <div class="row">
+                    <div class="col-md-6 mb-md-2 mb-sm-2">
+                        <label for="min_price">Min Price</label>
+                        <input type="text" name="min_price" id="min_price" class="form-control price-input" placeholder="Min Price"value="{{min_price}}">
+                    </div>
+                    <div class="col-md-6 mb-md-2 mb-sm-2">
+                        <label for="max_price">Max Price</label>
+                        <input type="text" name="max_price" id="max_price" class="form-control price-input" placeholder="Max Price" value="{{max_price}}">
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                
+                
+            </div>
+            <div class="col-lg-3 mb-lg-0 mb-md-5 mb-sm-5">
+                <h5 class="mb-20 text-colorful">Sort By</h5>
+               
+                    <select name="sort_by" class="colorful-select sortFilter">
+                        <option value="highToLow" {% if selected_sort_by == 'highToLow' %}selected{% endif %}>Price: High to Low</option>
+                        <option value="lowToHigh" {% if selected_sort_by == 'lowToHigh' %}selected{% endif %}>Price: Low to High</option>
+                        <!-- Add more sorting options if needed -->
+                    </select>
+                
+            </div>
+        
+        <button type="submit" class="btn btn-primary ">Apply Filters</button>
+    </form>
+</div>
+</div>
+
+ <!-- ... Remaining HTML code ... -->
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% if products %}
+
+<div class="tab-content wow fadeIn animated" id="myTabContent">
+    <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+        <div class="row product-grid-4">
+
+            {% for product in products %}
+
+            <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+                <div class="product-cart-wrap mb-30">
+                    <div class="product-img-action-wrap">
+                        <div class="product-img product-img-zoom">
+                            <a href="#">
+                                <img class="default-img" src="{{ product.image.url }}" alt="">
+                                <img class="hover-img" src="{{ product.image.url }}" alt="">
+                            </a>
+                        </div>
+                        <div class="product-action-1">
+                            <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                            <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
+                        </div>
+                        <div class="product-badges product-badges-position product-badges-mrg">
+                            <span class="hot">Hot</span>
+                        </div>
+                    </div>
+                    <div class="product-content-wrap">
+                        <div class="product-category">
+                            <a href="shop-grid-right.html">{{product.category}}</a>
+                        </div>
+                        <h2><a href="{% url 'base:product_detail' product.product_id %}">{{product.product_name}}</a></h2>
+                        <div class="rating-result" title="90%">
+                            <span>
+                                <span>90%</span>
+                            </span>
+                        </div>
+                        <div class="product-price">
+                            <span>${{product.price}} </span>
+                            <span class="old-price">$245.8</span>
+                        </div>
+                        <div class="product-action-1 show">
+                            <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="fi-rs-shopping-bag-add"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            </div>
+            </div>
+            </div>
+
+
+{%else%}
+<div class="no-products-found">
+    <h1>No Products Found</h1>
+</div>
+
+{%endif%}
+
+
+
+
+        
+
+
+            <style>
+                /* Additional CSS styles for enhanced visuals */
+                .text-colorful {
+                   color: #000000; /* Use your preferred color */
+                }
+                .price-input {
+                   border: 2px solid #088178;
+                 }
+                .colorful-select {
+                   width:35% ;
+                   height:25%;
+                   background: #088178; /* Use your preferred color */
+                   border-radius: 7px;
+                   color: #121111;
+                }
+             
+             .price-filter select {
+               width: 50%;
+               height:25%;
+               padding: 10px;
+               border-radius: 10px;
+               ;
+            }
+            
+            .no-products-found {
+        text-align: center;
+        color: #088178;
+        font-size: 48px;
+        margin-top: 200px; 
+        margin-bottom: 200px;
+        /* Adjust as needed to center the text vertically */
+    }
+                
+             </style>
+            
+
+            <script>
+                // Ensure minimum is less than maximum
+                function validatePriceRange() {
+                    var minPrice = document.getElementById('min_price').value;
+                    var maxPrice = document.getElementById('max_price').value;
+                    if(!minPrice && !maxprice){
+                        return true
+                    }
+                    if (minPrice >= maxPrice || isNaN(minPrice) || isNaN(maxPrice)) {
+                        alert('Please select valid price range');
+                        return false;
+                    }
+            
+                    return true;
+                }
+            </script>
+            
+
+{% endblock %}
