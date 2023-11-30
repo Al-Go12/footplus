@@ -24,7 +24,8 @@ def index(request):
     category__is_active=True).distinct()               
     
     categories=Category.objects.filter(is_active=True)
-    banner=Banner.objects.get(set=True)
+    banner=Banner.objects.filter(set=True)
+    if banner==None : banner=[None]
     print(banner)
 
     context={
