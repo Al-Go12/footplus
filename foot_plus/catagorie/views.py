@@ -479,7 +479,7 @@ def delete_variant(request, variant_id):
 
 
                           #order management#
-
+@login_required(login_url='base:admin_pannel')
 def order_list(request):
     if not request.user.is_authenticated:
         return redirect('account:admin_login')
@@ -488,7 +488,7 @@ def order_list(request):
     context = {'orders': orders}
     return render(request, 'admin/orderlist.html', context)
 
-
+@login_required(login_url='base:admin_pannel')
 def ordered_product_details(request, order_id):
     if not request.user.is_authenticated:
         return redirect('base:admin_pannel')
@@ -514,7 +514,7 @@ def ordered_product_details(request, order_id):
     }
     return render(request, 'admin/ordered_product_details.html', context)
 
-
+@login_required(login_url='base:admin_pannel')
 def update_order_status(request, order_id):
     if not request.user.is_authenticated:
         return redirect('account:admin_login')
@@ -539,7 +539,8 @@ def update_order_status(request, order_id):
 
      #------------------------------------------Brand Management----------------------------#
 
-import re     
+import re   
+@login_required(login_url='base:admin_pannel')  
 def add_brand(request):
    if request.method == 'POST':
         brand_name = request.POST.get('brand_name')
@@ -560,11 +561,13 @@ def add_brand(request):
     
    return render(request, 'admin/add_brand.html')
 
-   
+@login_required(login_url='base:admin_pannel')  
 def brand_list(request):
     brand=Brand.objects.filter(is_active=True)
     return render(request,'admin/brand_list.html',context={'brands':brand}) 
 
+
+@login_required(login_url='base:admin_pannel')
 def delete_brand(request, brand_id):
     brand = get_object_or_404(Brand, id=brand_id)  
     if brand:
@@ -595,7 +598,7 @@ def list_coupons(request):
     coupons=Coupon.objects.filter(is_active=True)
     return render(request,'admin/list_coupon.html',{"coupons":coupons})
 
-@login_required(login_url='account:admin_login')
+@login_required(login_url='base:admin_pannel')
 def delete_coupon(request, id):
     if not request.user.is_authenticated:
         return redirect('base:admin_pannel')
@@ -611,7 +614,7 @@ def delete_coupon(request, id):
     return redirect('catagorie:list_coupons')
 
 
-@login_required(login_url='account:admin_login')
+@login_required(login_url='base:admin_pannel')
 def edit_coupon(request, id):
     coupon = get_object_or_404(Coupon, pk=id)
     if not request.user.is_authenticated:
@@ -655,7 +658,7 @@ def reports(request):
      return render(request, 'admin/report.html')
 
 
-@login_required(login_url='account:admin_login')
+@login_required(login_url='base:admin_pannel')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def filtered_sales(request):
     if not request.user.is_authenticated:
@@ -774,7 +777,7 @@ def sales_report(request):
 
 
 
-@login_required(login_url='base:admin_login')
+@login_required(login_url='base:admin_pannel')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def dashboard(request):
     
