@@ -124,7 +124,7 @@ def wishlist(request):
     context={
         'wishlist':wishlist
     }
-    return render(request,'user/wishlist.html',context)
+    return render(request,'USER/wishlist.html',context)
 
 
 @login_required(login_url='base:login')

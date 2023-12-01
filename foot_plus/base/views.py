@@ -37,7 +37,7 @@ def index(request):
 
 
 def product_info(request):
-    return render(request,'user/product.html')
+    return render(request,'USER/product.html')
     
 
 
@@ -192,7 +192,7 @@ def resend_otp(request):
 
 
 def base(request):
-    return render(request,'ADMIN/index.html')
+    return render(request,'admin/index.html')
 
 
 
@@ -261,7 +261,7 @@ def product_detail(request,product_id):
         'selected_color': selected_color,
         'selected_variants': selected_variants,
     }
-    return render(request,'user/product.html',context)
+    return render(request,'USER/product.html',context)
 
 
 
@@ -300,7 +300,7 @@ def add_address(request):
         return redirect('cart:checkout')
 
     
-    return render(request, 'user/add address.html',)
+    return render(request, 'USER/add address.html',)
 
 
         

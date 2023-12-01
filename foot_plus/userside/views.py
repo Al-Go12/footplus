@@ -47,7 +47,7 @@ def profile(request):
     context = {
         'user': user
     }
-    return render(request, 'user/profile.html', context)
+    return render(request, 'USER/profile.html', context)
 
 
 @login_required(login_url='base:login')
@@ -60,7 +60,7 @@ def user_orders(request,):
        
 
     }
-    return render(request, 'user/my_orders.html', context)
+    return render(request, 'USER/my_orders.html', context)
 
 
 
@@ -102,7 +102,7 @@ def order_details(request, order_id):
         'payments': payments,
     }
 
-    return render(request,'user/order_detail.html',context)
+    return render(request,'USER/order_detail.html',context)
      
 import re
 @login_required(login_url='base:login')
@@ -138,14 +138,14 @@ def edit_profile(request):
          user.save()
          return redirect('user:profile')
         
-    return render(request, 'user/edit_profile.html',context)
+    return render(request, 'USER/edit_profile.html',context)
 @login_required(login_url='base:login')
 def user_addres(request):
     addresses = Address.objects.filter(user=request.user,is_active=True)
     context = {
         'addresses': addresses
     }
-    return render(request, 'user/user_address.html', context)
+    return render(request, 'USER/user_address.html', context)
 
 
 @login_required(login_url='base:login')
@@ -202,7 +202,7 @@ def add_address(request):
             return redirect('user:user_address')
 
     # Add this return statement for the else block
-    return render(request, 'user/add_address.html')
+    return render(request, 'USER/add_address.html')
 
 from django.http import JsonResponse
 def add_addresss(request):
@@ -318,7 +318,7 @@ def edit_address(request,id):
             return redirect('user:user_address')
 
     context = {'address': address}
-    return render(request, 'user/edit_address.html', context)
+    return render(request, 'USER/edit_address.html', context)
 
 @login_required(login_url='base:login')
 def delete_address(request, id):
@@ -356,7 +356,7 @@ def change_password(request):
             auth.update_session_auth_hash(request, user)
             messages.success(request, 'Password changed successfully.')
             return redirect('user:profile')  
-    return render(request,'user/change_password.html')  
+    return render(request,'USER/change_password.html')  
 
     
 

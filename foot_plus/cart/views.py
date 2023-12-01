@@ -364,13 +364,13 @@ def checkout(request,total=0, quantity=0, cart_items=None):
     }
 
 
-    return render(request,'user/checkout.html',context)
+    return render(request,'USER/checkout.html',context)
 
 
 
 
 def add_address(request):
-    return render(request,'user/add address.html')
+    return render(request,'USER/add address.html')
 
 
 
@@ -471,7 +471,7 @@ def place_order(request, total=0, quantity=0):
                 'final_total' : final_total,
                 'selected_address': selected_address,
             }
-            return render(request, 'user/payment.html', context)
+            return render(request, 'USER/payment.html', context)
         else:
             return redirect('cart:checkout')
         
@@ -631,7 +631,7 @@ def paytment(request):
             
             return redirect("cart:order_success", id=order.id) 
         else:
-            return render(request, 'user/payment.html')
+            return render(request, 'USER/payment.html')
         
 
 
@@ -716,4 +716,4 @@ def order_success(request, id):
         'order': order,
         'order_products': order_products,
      }
-     return render(request, 'user/order_sucess.html', context)
+     return render(request, 'USER/order_sucess.html', context)
