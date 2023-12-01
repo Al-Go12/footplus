@@ -23,7 +23,7 @@ def wallet_details(request):
         'user':user
         
     } 
-    return render(request,'user/wallet.html',context)
+    return render(request,'USER/wallet.html',context)
 
 def pay_wallet_details(request, order_number, order_total):
     grand_total = order_total
@@ -83,7 +83,7 @@ def pay_wallet_details(request, order_number, order_total):
                         'final_total': final_total,
                         'selected_address': selected_address,
                     }
-                    return render(request, 'user/payment.html', context)
+                    return render(request, 'USER/payment.html', context)
 
         else:
                 print('action is done')
@@ -263,7 +263,7 @@ def product_list(request):
         'max_price':max_price,
     }
 
-    return render(request, 'user/product_filter.html', context)
+    return render(request, 'USER/product_filter.html', context)
     
   else:
       categories = Category.objects.all()
@@ -274,7 +274,7 @@ def product_list(request):
       'brands': brands,
                            }
 
-      return render(request, 'user/product_filter.html', context)
+      return render(request, 'USER/product_filter.html', context)
       
         
 
@@ -290,7 +290,7 @@ def search(request):
         'products': products,
     }
 
-    return render(request, 'user/searchproduct.html', context)
+    return render(request, 'USER/searchproduct.html', context)
                   
             
 

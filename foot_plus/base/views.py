@@ -24,8 +24,9 @@ def index(request):
     category__is_active=True).distinct()               
     
     categories=Category.objects.filter(is_active=True)
-    banner=Banner.objects.filter(set=True)
-    if banner==None : banner=[None]
+    banner=Banner.objects.get(set=True)
+    if banner==None:
+        banner=[]
     print(banner)
 
     context={
@@ -164,7 +165,7 @@ def veify_otp(request):
          login(request,user)
          messages.success(request, "signup successful!")
          return redirect('base:index')
-  return render(request,'user/otp_veification.html')
+  return render(request,'USER/otp_veification.html')
 
 
 

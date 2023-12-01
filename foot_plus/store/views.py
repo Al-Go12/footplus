@@ -53,7 +53,8 @@ def add_banners(request):
                 # Clean up temporary files
                 os.remove(resized_image_path)
 
-            return JsonResponse({'success': True, 'message': 'Banner added successfully'})
+            JsonResponse({'success': True, 'message': 'Banner added successfully'})
+            return redirect('store:display')
   
         
 

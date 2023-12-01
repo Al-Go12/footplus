@@ -59,7 +59,7 @@
                     <a href="page-privacy-policy.html"><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a>
                 </div>
                 <div class="form-group">
-                   <a href="{% url 'base:signup' %}"> <button  type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Submit &amp; Register</button></a>
+                    <button  type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Submit &amp; Register</button>
                 </div>
             </form>
             <div class="divider-text-center mt-15 mb-15">
@@ -69,7 +69,7 @@
                 <li><a href="#" class="btn btn-facebook hover-up mb-lg-0 mb-sm-4">Login With Facebook</a></li>
                 <li><a href="#" class="btn btn-google hover-up">Login With Google</a></li>
             </ul>
-            <div class="text-muted text-center">Already have an account? <a href="#">Sign in now</a></div>
+            <div class="text-muted text-center">Already have an account? <a href="{% url 'base:login' %}">Sign in now</a></div>
         </div>
     </div>
 </div>
