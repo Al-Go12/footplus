@@ -51,7 +51,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
         'grand_total': grand_total
     }
 
-    return render(request, 'user/cart.html', context)
+    return render(request, 'USER/cart.html', context)
 
 
 def add_cart(request, product_id):
