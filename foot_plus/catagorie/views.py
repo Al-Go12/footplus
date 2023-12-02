@@ -777,7 +777,7 @@ def sales_report(request):
 
 
 
-@login_required(login_url='base:admin_pannel')
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def dashboard(request):
     
