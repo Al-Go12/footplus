@@ -60,11 +60,11 @@
                                         {% if selected_variants %}
                                         {% for variant in selected_variants %}
                                         {% for image in variant.images.all %}
-                                        {% if forloop.counter <= 4 %}
+                                         {% if forloop.counter <= 4 %}
                                         <figure class="border-radius-10">
                                             <img src="{{ image.image.url }}" alt="product image">
                                         </figure>
-                                        {% endif %}
+                                         {% endif %}
                                         {% endfor %}
                                         {% endfor %}
                                         {% else %}

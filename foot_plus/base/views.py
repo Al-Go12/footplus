@@ -98,7 +98,7 @@ def handlesignup(request):
 
         # Validate input using regular expressions
         if not re.match(r'^\w+$', username):
-            messages.error(request, "Username can only contain alphanumeric characters and underscores.")
+            messages.error(request, "Username can only contain alphabets number characters and underscores no white space allowded.")
             return redirect('base:signup')
 
         if not re.match(r'^[a-zA-Z]+$', first_name) or not re.match(r'^[a-zA-Z]+$', last_name):
@@ -109,7 +109,7 @@ def handlesignup(request):
         if Account.objects.filter(email=email).exists():
             messages.error(request, "Email address already exists.")
             return redirect('base:signup')
-        if Account.objects.filter(username=username).exists:
+        if Account.objects.filter(username=username).exists():
              messages.error(request, "User Name already exists use another User name.")
              return redirect('base:signup')
 

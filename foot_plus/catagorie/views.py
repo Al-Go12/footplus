@@ -287,7 +287,8 @@ def produ(request):
     if search_query:
         products = Product.objects.filter(product_name__icontains=search_query, is_active=True)
     else:
-        products = Product.objects.filter(is_active=True)
+        products = Product.objects.filter(is_active=True).order_by('-product_id')
+       
 
     
     page = request.GET.get('page', 1)
@@ -381,7 +382,7 @@ def variant_list(request):
             Q(stock__icontains=search_query)
         ).distinct()
     else:
-        product_varient = varients.objects.filter(is_active=True)
+        product_varient = varients.objects.filter(is_active=True).order_by('-id')
 
     # Pagination
     page = request.GET.get('page', 1)
