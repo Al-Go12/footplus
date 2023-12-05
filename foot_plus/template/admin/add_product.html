@@ -1,7 +1,7 @@
 {% extends 'admin/inheritance.html' %}
 {% load static %}
 
-{% block title %}Add Product{% endblock title %}
+
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
@@ -17,13 +17,10 @@
                            
                             <div class="col-sm-6">
                                 <label for="{{ form.name.id_for_label }}">Product Name</label>
-                                <input type="text" class="form-control" id="product_name" name="product_name">
+                                <input type="text" class="form-control" id="product_name" name="product_name" required maxlength="99">
                             </div>
                         </div>
-                      <!-- <div class="col-sm-6">
-                            <label for="{{ form.stocks.id_for_label }}">Stocks</label>
-                            <input type="text" class="form-control" id="stocks" name="stocks">
-                        </div>-->
+                    
 
                         <div class="mb-3">
                             <label for="product">Catagory</label>
@@ -37,7 +34,7 @@
 
                         <div class="mb-3">
                             <label for="{{ form.description.id_for_label }}">Description</label>
-                            <textarea name="description" class="form-control" rows="4"></textarea>
+                            <textarea name="description" class="form-control" rows="4" ></textarea>
                         </div>
 
                         <div class="row mb-3">

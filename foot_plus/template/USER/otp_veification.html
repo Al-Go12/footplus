@@ -2,34 +2,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OTP Verification</title>
-    <!-- Include Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- alterify -->
+    <meta charset="utf-8">
+    <title>Otp verification</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/imgs/theme/foot.jpg' %}">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{%static 'assets/css/maind134.css'%}">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-    <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+     <!-- Default theme -->
+     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 
 </head>
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h1 class="mt-5 mb-4">OTP Verification</h1>
-                <form method="post"  class="mb-5">
-                    {% csrf_token %}
-                    <p>Enter the OTP sent to your email:</p>
-                    <div class="form-group">
-                        <label for="otp">OTP:</label>
-                        <input type="text" name="otp" class="form-control" required maxlength="4" pattern="[0-9]{4}">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">OTP Verification</h1>
+                        <form method="post" class="mb-4">
+                            {% csrf_token %}
+                            <p class="text-center">Enter the OTP sent to your email:</p>
+                            <div class="form-group">
+                                <label for="otp" class="sr-only">OTP:</label>
+                                <input type="text" name="otp" class="form-control" required maxlength="4" pattern="[0-9]{4}" placeholder="Enter OTP">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Verify OTP</button>
+                        </form>
+                        <p class="text-center">
+                            <a href="{% url 'base:resend_otp' %}">Resend OTP</a>
+                        </p>
                     </div>
-                    <a href="{% url 'base:vp' %}">
-                    <button type="submit" class="btn btn-primary">Verify OTP</button>
-                    </a>
-                </form>
-                <a href="{% url 'base:resend_otp' %}"> resend OTP</a>
+                </div>
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@
 <!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:35 GMT -->
 <head>
     <meta charset="utf-8">
-    <title>Evara Dashboard</title>
+    <title>footplus Dashboard</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
-            <a href="index.html" class="brand-wrap">
+            <a  class="brand-wrap">
                 <img src="{% static 'admin_assets/imgs/theme/foot.jpg' %}" class="logo" alt="Evara Dashboard">
             </a>
             <div>
@@ -66,6 +66,18 @@
                         <a href="{% url 'catagorie:product_list' %}">Product List</a>
                         <a href="{% url 'catagorie:add_product' %}">Add Product </a>
             
+                        
+                    </div>
+                </li>
+                 
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Varients</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="{% url 'catagorie:variant-list' %}">varient list</a>
+                        <a href="{% url 'catagorie:add-variant' %}">Add varient</a>
                         
                     </div>
                 </li>
@@ -108,7 +120,7 @@
 
 
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                    <a class="menu-link" > <i class="icon material-icons md-person"></i>
                         <span class="text">Users</span>
                     </a>
                     <div class="submenu">
@@ -118,20 +130,10 @@
                 </li>
 
                 
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Varients</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="{% url 'catagorie:variant-list' %}">varient list</a>
-                        <a href="">Add varient</a>
-                        
-                    </div>
-                </li>
-
+               
             
                 <li class="menu-item has-submenu has-submenu">
-                    <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" > <i class="icon material-icons md-stars"></i>
                         <span class="text">Brands</span> </a>
                         <div class="submenu">
                             <a href="{% url 'catagorie:brand_list' %}">Brand list</a>
@@ -142,7 +144,7 @@
 
             
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                    <a class="menu-link" disabled > <i class="icon material-icons md-pie_chart"></i>
                         <span class="text">coupons</span></a>
                         <div class="submenu">
                             <a href="{% url 'catagorie:list_coupons' %}">coupon list</a>
@@ -167,22 +169,22 @@
                 <ul class="nav">
                     
                     <li class="nav-item">
-                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                        <a class="nav-link btn-icon darkmode" > <i class="material-icons md-nights_stay"></i> </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                        <a  class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
                     </li>
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown"  id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
-                            <a class="dropdown-item text-brand" href="#"><img src="{% static 'admin_assets/imgs/theme/flag-us.png' %}" alt="English">English</a>
-                            <a class="dropdown-item" href="#"><img src="{% static 'admin_assets/imgs/theme/flag-fr.png' %}" alt="Français">Français</a>
-                            <a class="dropdown-item" href="#"><img src="{% static 'admin_assets/imgs/theme/flag-jp.png' %}" alt="Français">日本語</a>
-                            <a class="dropdown-item" href="#"><img src="{% static 'admin_assets/imgs/theme/flag-cn.png' %}" alt="Français">中国人</a>
+                            <a class="dropdown-item text-brand" ><img src="{% static 'admin_assets/imgs/theme/flag-us.png' %}" alt="English">English</a>
+                            <a class="dropdown-item" ><img src="{% static 'admin_assets/imgs/theme/flag-fr.png' %}" alt="Français">Français</a>
+                            <a class="dropdown-item" ><img src="{% static 'admin_assets/imgs/theme/flag-jp.png' %}" alt="Français">日本語</a>
+                            <a class="dropdown-item" ><img src="{% static 'admin_assets/imgs/theme/flag-cn.png' %}" alt="Français">中国人</a>
                         </div>
                     </li>
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="{% static 'admin_assets/imgs/people/avatar2.jpg' %}" alt="User"></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown"  id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="{% static 'assets/imgs/page/user.png' %}" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="{% url 'base:alogout' %}"><i class="material-icons md-exit_to_app"></i>Logout</a>
@@ -216,21 +218,7 @@
 
         
     </main>
-    <footer class="main-footer font-xs bg-light py-2  mt-auto" >
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <script>
-                       document.write( new Date().getFullYear())
-                    </script> ©, Evara - HTML Ecommerce Template .
-                </div>
-                <div class="col-sm-6 text-sm-end">
-                    All rights reserved
-                </div>
-            </div>
-        </div>
-    
-    </footer>
+   
 
    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>--> 
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>

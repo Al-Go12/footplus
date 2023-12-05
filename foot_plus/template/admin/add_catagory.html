@@ -14,12 +14,12 @@
                         {% csrf_token %}
                         <div class="mb-4">
                             <label for="product_name" class="form-label" >Name</label>
-                            <input type="text" placeholder="Type here" class="form-control" name="catagory_name" />
+                            <input type="text" placeholder="Type here" class="form-control" name="catagory_name" required maxlength="99">
                         </div>
                        
                         <div class="mb-4">
                             <label class="form-label">Description</label>
-                            <textarea placeholder="Type here" class="form-control" name="description"></textarea>
+                            <textarea placeholder="Type here" class="form-control" name="description" required maxlength="200"></textarea>
                         </div>
                         <div class="d-grid">
                             <button class="btn btn-primary" type="submit">Create category</button>

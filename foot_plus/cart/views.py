@@ -10,6 +10,7 @@ from django.urls import reverse
 import datetime
 from orders.forms import OrderForm
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 #import razorpay
 #client = razorpay.Client(auth=("rzp_test_dVGw4C9qQAugCR", "YOUR_SECRET"))
 
@@ -25,7 +26,7 @@ def _cart_id(request):
 
     return cart
 
-
+@login_required(login_url='base:login')
 def cart(request, total=0, quantity=0, cart_items=None):
     try:
         tax=0
@@ -53,7 +54,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
 
     return render(request, 'USER/cart.html', context)
 
-
+@login_required(login_url='base:login')
 def add_cart(request, product_id):
    
    
@@ -304,7 +305,7 @@ def remove_cart_item_fully(request):
 
 
 
-
+@login_required(login_url='base:login')
 def checkout(request,total=0, quantity=0, cart_items=None):
         
     if not request.user.is_authenticated:
@@ -421,7 +422,7 @@ def place_order(request, total=0, quantity=0):
             else:
                 selected_address_id = request.POST.get('selected_address')
                 if selected_address_id is None:
-                    messages.error(request,'chose an address or add address') 
+                    messages.error(request,'choose an address or add address') 
                     return redirect('cart:checkout')
                 else:
 

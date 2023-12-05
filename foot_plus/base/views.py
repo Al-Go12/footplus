@@ -25,8 +25,6 @@ def index(request):
     
     categories=Category.objects.filter(is_active=True)
     banner=Banner.objects.get(set=True)
-    if banner==None:
-        banner=[]
     print(banner)
 
     context={
@@ -111,6 +109,9 @@ def handlesignup(request):
         if Account.objects.filter(email=email).exists():
             messages.error(request, "Email address already exists.")
             return redirect('base:signup')
+        if Account.objects.filter(username=username).exists:
+             messages.error(request, "User Name already exists use another User name.")
+             return redirect('base:signup')
 
         # Check for password match
         if pass1 != pass2:
@@ -304,5 +305,84 @@ def add_address(request):
     return render(request, 'USER/add address.html',)
 
 
-        
+
+
+def sendotpforrestpass(request):
+    if request.method=="POST":
+        email=request.POST.get("email")
+        try:
+            euser = Account.objects.get(email__iexact=email)
+            request.session['email'] = email
+            return redirect('base:sendotp')
+        except Account.DoesNotExist:
+            messages.error(request, "Not a Registered User")
+            return redirect('base:forgetpassword')
+              
+    return render(request,'USER/getmail.html')      
+
+def sent_otpforforget(request):
+    randomn=random.randint(1000,9999)
+    request.session['otpn']=randomn
+
+    send_mail(
+     "OTP AUTHENTICATING fKart",
+     f"{randomn} -OTP",
+     "algo23196@gmail.com",
+     [request.session['email']],
+     fail_silently=False,
+      )
+    return redirect('base:verify')
+
+from django.contrib import auth
+def verify(request):
+    try:
+        user = Account.objects.get(email=request.session['email'])
+    except (KeyError, Account.DoesNotExist):
+        messages.error(request, 'Invalid session or user not found.')
+        return redirect('base:index')  # Redirect to a suitable page
+
+    password_pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+
+    if request.method == "POST":
+        newpassword = request.POST.get('new_password')
+        confirmpass = request.POST.get('confirm_password')
+
+        if str(request.session['otpn']) != str(request.POST['otp']):
+            messages.error(request, "Invalid OTP")
+            return redirect('base:verify')
+
+        if newpassword != confirmpass:
+            messages.error(request, 'Password mismatch')
+        elif not newpassword or not re.match(password_pattern, newpassword):
+            messages.error(request, 'Invalid or weak password. It should have at least 8 characters, including at least one uppercase letter, one lowercase letter, one digit, and one special character.')
+        else:
+            user.set_password(newpassword)
+            user.save(update_fields=['password'])
+            messages.success(request, 'Password changed successfully.')
+            login(request, user)
+            return redirect('base:index')
+
+    return render(request, 'USER/verificationpage.html')
+
+def resendotps(request):
+    
+    if request.user.is_authenticated:
+        return redirect('account:index')
+    
+    email = request.session.get('email')
+    print(email)
+    if email is None:
+        email=request.user.email
+    print(email)    
+    random_num = random.randint(1000, 9999)
+    request.session['otpn'] = random_num
+    send_mail(
+        "Resend OTP for fKart",
+        f"{random_num} - OTP",
+        "algo23196@gmail.com",
+        [email],
+        fail_silently=False,
+    )
+    messages.success(request, "OTP has been resent successfully!")
+    return redirect('base:verify')           
 

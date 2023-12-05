@@ -14,7 +14,7 @@ import os
 
 
 #----------------------------------------Banner------------------------#
-def resize_image(image, output_width=1200, output_height=380):
+def resize_image(image, output_width=1200, output_height=400):
     original_image = Image.open(image)
     if original_image.mode == 'RGBA':
         original_image = original_image.convert('RGB')
@@ -34,16 +34,15 @@ def resize_image(image, output_width=1200, output_height=380):
  
 
 def add_banners(request):
- if request.method == 'POST':
-    banner_name = request.POST.get('banner_name')
-    images = request.FILES.getlist('images[]')
+    if request.method == 'POST':
+        banner_name = request.POST.get('banner_name')
+        images = request.FILES.getlist('images[]')
 
-    if not banner_name or not images:
-        return JsonResponse({'success': False, 'message': 'Provide Proper banner name and images'})
+        if not banner_name or not images:
+            messages.error(request, 'Provide Proper banner name and images')
+            return redirect('store:add_banner')  # Redirect back to the form page, or adjust the URL as needed
         
-    else:
-            
-
+        else:
             banner = Banner.objects.create(banner_name=banner_name)
             for image in images:
                 resized_image_path = resize_image(image)
@@ -52,14 +51,12 @@ def add_banners(request):
 
                 # Clean up temporary files
                 os.remove(resized_image_path)
+            
+            messages.success(request, 'Banner added successfully')
+            print('hai')
+            return redirect('store:display')  # Redirect to the desired page after successfully adding the banner
 
-            JsonResponse({'success': True, 'message': 'Banner added successfully'})
-            return redirect('store:display')
-  
-        
-
-
- return render(request, 'admin/add_banner.html')
+    return render(request, 'admin/add_banner.html')
 
 
 def display(request):

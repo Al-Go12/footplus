@@ -60,9 +60,11 @@
                                         {% if selected_variants %}
                                         {% for variant in selected_variants %}
                                         {% for image in variant.images.all %}
+                                        {% if forloop.counter <= 4 %}
                                         <figure class="border-radius-10">
                                             <img src="{{ image.image.url }}" alt="product image">
                                         </figure>
+                                        {% endif %}
                                         {% endfor %}
                                         {% endfor %}
                                         {% else %}
@@ -100,9 +102,8 @@
                                         <div class="product-price primary-color float-left">
 
 
-                                            <ins><span class="text-brand">{{products.price}}</span></ins>
-                                            <ins><span class="old-price font-md ml-15">$200.00</span></ins>
-                                            <span class="save-price  font-md color3 ml-15">25% Off</span>
+                                            <ins><span class="text-brand">₹ {{products.price}}</span></ins>
+                                            
                                         </div>
                                     </div>
                                     <div class="bt-1 border-color-1 mt-15 mb-15"></div>
@@ -127,7 +128,7 @@
 
                                     {% if not selected_variants %}
                                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Oops!</strong> It looks like you haven't selected a color. Please choose a color to continue.
+                                        <strong>Oops!</strong> It looks like you haven't selected a colour. Please choose a colour to continue.
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 {% endif %}
@@ -146,13 +147,13 @@
                                     <div class="card bg-light mb-4 " style="max-width: 500px;">
                                         <div class="card-body">
                                             <h3 class="card-title text-primary">
-                                                Available Shoes with {{ selected_color }} Color:
+                                                Available shoes with {{ selected_color }} colour:
                                             </h3>
                                             <ul class="list-group list-group-flush">
                                                 {% for variant in selected_variants %}
                                                     <li class="list-group-item mb-2">
                                                         <span class="text-success font-weight-bold">Size: {{ variant.size }}</span>
-                                                        <span class="text-danger font-weight-bold ms-3">Price: {{ variant.price }}</span>
+                                                        <span class="text-danger font-weight-bold ms-3">Price:₹ {{ variant.price }}</span>
                                                     </li>
                                                 {% endfor %}
                                             </ul>
@@ -222,30 +223,18 @@
                     <div class="col-lg-10 m-auto entry-main-content">
                         <h2 class="section-title style-1 mb-30">Description</h2>
                         <div class="description mb-50">
-                            <p>Uninhibited carnally hired played in whimpered dear gorilla koala depending and much
-                                yikes off far quetzal goodness and from for grimaced goodness unaccountably and
-                                meadowlark near unblushingly crucial scallop
-                                tightly neurotic hungrily some and dear furiously this apart.</p>
-                            <p>Spluttered narrowly yikes left moth in yikes bowed this that grizzly much hello on
-                                spoon-fed that alas rethought much decently richly and wow against the frequent fluidly
-                                at formidable acceptably flapped
-                                besides and much circa far over the bucolically hey precarious goldfinch mastodon
-                                goodness gnashed a jellyfish and one however because.
+                            <p>{{products.description}}</p>
+                            <p>{{products.brand}}
                             </p>
                             <ul class="product-more-infor mt-30">
-                                <li><span>Type Of Packing</span> Bottle</li>
-                                <li><span>Color</span> Green, Pink, Powder Blue, Purple</li>
-                                <li><span>Quantity Per Case</span> 100ml</li>
-                                <li><span>Ethyl Alcohol</span> 70%</li>
-                                <li><span>Piece In One</span> Carton</li>
+                                <li><span>{{products.category}}</span>{{products.category.description}}</li>
+                                <li><span>Color</span> All colors avilable</li>
+                                <li><span>{{products.brand}}</span> Trusted</li>
+                               
                             </ul>
                             <hr class="wp-block-separator is-style-dots">
-                            <p>Laconic overheard dear woodchuck wow this outrageously taut beaver hey hello far
-                                meadowlark imitatively egregiously hugged that yikes minimally unanimous pouted
-                                flirtatiously as beaver beheld above forward
-                                energetic across this jeepers beneficently cockily less a the raucously that magic
-                                upheld far so the this where crud then below after jeez enchanting drunkenly more much
-                                wow callously irrespective limpet.</p>
+                            <p>
+                                Step into the world of {{products.brand}}, where style and comfort intertwine seamlessly! Explore our versatile collection of high-quality footwear, featuring {{products.category}} that caters to your unique taste. From athletic sneakers to sophisticated loafers and elegant heels, each {{products.product_name}} is carefully selected from top brands, ensuring a perfect blend of fashion and reliability. Indulge in a selection curated for those who value both trendsetting style and unmatched comfort. At {{products.brand}}, we redefine footwear, offering a range that embodies the essence of your distinctive fashion sense. Elevate your look with our stylish and trustworthy {{products.category}} - your journey to unmatched style begins here!</p>
                         </div>
                     </div>
                 </div>

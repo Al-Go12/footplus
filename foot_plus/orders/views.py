@@ -14,7 +14,7 @@ def wallet_details(request):
     try:
        wallets=wallet.objects.get(user=request.user)
     except wallet.DoesNotExist:
-        wallets=wallet.objects.create(user=request.user,wallet_amount=0)
+        wallets=wallet.objects.create(user=request.user, wallet_amount=0)
     wallet_amount=wallets.wallet_amount
     user=request.user
 
@@ -266,8 +266,8 @@ def product_list(request):
     return render(request, 'USER/product_filter.html', context)
     
   else:
-      categories = Category.objects.all()
-      brands = Brand.objects.all()
+      categories = Category.objects.filter(is_active=True)
+      brands = Brand.objects.filter(is_active=True)
       context = {
        'products': products,
        'categories': categories,

@@ -17,6 +17,8 @@ from PIL import Image
 from django.core.files.base import ContentFile
 from io import BytesIO
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
@@ -275,23 +277,35 @@ def edit_product(request, product_id):
 
 
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 @login_required(login_url='base:admin_pannel')
 def produ(request):
     search_query = request.GET.get('search', '')
 
-    # Query the products based on the search query and exclude soft-deleted products
+   
     if search_query:
         products = Product.objects.filter(product_name__icontains=search_query, is_active=True)
     else:
         products = Product.objects.filter(is_active=True)
 
+    
+    page = request.GET.get('page', 1)
+    paginator = Paginator(products, 10) 
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
     context = {
         'products': products
     }
 
-    # Provide the correct template name 'admin/product.html'
-    return render(request, 'admin/products.html', context)
 
+    return render(request, 'admin/products.html', context)
 def pro(request):
    
    return render(request,'admin/product.html' )
@@ -358,18 +372,28 @@ def varient_slist(request):
 
 
 def variant_list(request):
-   
-
     search_query = request.GET.get('search', '')
+
     if search_query:
-         product_varient = varients.objects.filter(
+        product_varient = varients.objects.filter(
             Q(color__icontains=search_query) |
             Q(size__icontains=search_query) |
             Q(stock__icontains=search_query)
         ).distinct()
     else:
-       product_varient = varients.objects.filter(is_active=True)
-      # Fetch all orders from the Order model
+        product_varient = varients.objects.filter(is_active=True)
+
+    # Pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(product_varient, 8)  # Show 10 variants per page
+
+    try:
+        product_varient = paginator.page(page)
+    except PageNotAnInteger:
+        product_varient = paginator.page(1)
+    except EmptyPage:
+        product_varient = paginator.page(paginator.num_pages)
+
     context = {'product_varient': product_varient}
     return render(request, 'admin/varient.html', context)
 

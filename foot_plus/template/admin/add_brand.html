@@ -13,7 +13,7 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="brandName">Brand Name</label>
-                                <input type="text" name="brand_name" id="brandName" class="form-control" placeholder="Enter Brand Name" required>
+                                <input type="text" name="brand_name" id="brandName" class="form-control" placeholder="Enter Brand Name" required maxlength="90">
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Add Brand</button>
                         </form>

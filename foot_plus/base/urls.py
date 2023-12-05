@@ -15,13 +15,14 @@ urlpatterns=[
      path('vp',views.veify_otp,name='vp'),
      path('logout',views.user_logout,name='logout'),
      path('alogout',views.admin_logout,name='alogout'),
-
-
-
      path('add_address',views.add_address,name="add_address"),
-
-
      path('base/',views.base,name='base'),
+     #--------------forgetpassword------------#
+     path('forgetpassword',views.sendotpforrestpass,name='forgetpassword'),
+     path('sendotp',views.sent_otpforforget,name='sendotp'),
+     path('verify',views.verify,name='verify'),
+     path('resendotp',views.resendotps,name='resend')
+
      #path('db',views.db,name='db'),
     
      

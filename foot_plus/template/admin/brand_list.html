@@ -1,4 +1,4 @@
-{% extends 'user/base.html' %}
+{% extends 'admin/inheritance.html' %}
 
 {% load static %}
 
@@ -8,6 +8,7 @@
     <table class="table table-sm">
         <thead>
             <tr>
+                <th>No</th> <!-- New column for numbers -->
                 <th>Brand Name</th>
                 <th>Action</th>
             </tr>
@@ -15,6 +16,7 @@
         <tbody>
             {% for brand in brands %}
                 <tr>
+                    <td>{{ forloop.counter }}</td> <!-- Display the loop counter -->
                     <td>{{ brand.brand_name }}</td>
                     <td>
                         <!-- Styled delete button using Bootstrap classes -->
@@ -25,4 +27,5 @@
         </tbody>
     </table>
 </div>
+
 {% endblock %}
