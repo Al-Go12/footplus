@@ -239,91 +239,103 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     $(document).ready(function () {
-      // Function to apply the coupon
+        // Function to apply the coupon
+        $('#remove-coupon-btn').hide();
+        $('#apply-coupon-btn').click(function () {
+            var selectedCoupon = $('#coupon-code-select').val();  // Get the selected coupon code
 
-      $('#remove-coupon-btn').hide();
-      $('#apply-coupon-btn').click(function () {
-          var selectedCoupon = $('#coupon-code-select').val();  // Get the selected coupon code
-  
-          if (!selectedCoupon) {
-              alert('Please select a coupon before applying.');
-              return;
-          }
-  
-          var token = $('[name="csrfmiddlewaretoken"]').val();
-          var grandTotal = '{{ grand_total }}';
-  
-          console.log("Coupon Code:", selectedCoupon);
-          console.log("Token:", token);
-          console.log("Grand Total:", grandTotal);
-  
-          $.ajax({
-              method: 'POST',
-              url: '{% url "cart:apply_coupon" %}',
-              data: {
-                  'csrfmiddlewaretoken': token,
-                  'coupon_code': selectedCoupon,
-                  'grand_total': grandTotal
-              },
-              success: function (response) {
-                  if (response.status === 'success') {
-                    console.log("coupon",response.coupon_discount);
-                      // Update coupon discount and other relevant UI elements
-                      $('#coupon-discount').text('$' + response.coupon_discount);
-                      $('#coupon-discount-display').text(' Discount: ₹' + response.coupon_discount.toFixed(2));
-                      $('#final-total').text('$' + response.final_total);
-                      $('#grand-total').text('Grand Total ₹ ' + response.final_total);
-                      Swal.fire('Success', 'Coupon Aplayed successfully.', 'success');
-                      $('#apply-coupon-btn').hide();
-                      $('#remove-coupon-btn').show();
-                  } else {
-                      alert(`Error: ${response.message}`)
-                     
-                  }
-              },
-              error: function () {
-                  alert('An error occurred while applying the coupon.');
-              }
-          });
-      });
-  
-      // Function to remove the applied coupon
-    $('#remove-coupon-btn').click(function () {
-        // Reset UI elements and remove coupon data from the session
-        $('#coupon-discount').text('$0');
-        $('#final-total').text('$' + '{{ grand_total }}');
-        $('#grand-total').text('Grand Total ₹ ' + '{{ grand_total }}');
-
-        // Clear the selected coupon in the dropdown
-        $('#coupon-code-select').val('');
-
-        // Make an AJAX request to remove coupon data from the session on the server side
-        var grandTotal = parseFloat('{{ grand_total }}');
-
-        $.ajax({
-            method: 'POST',
-            url: '{% url "cart:remove_coupon" %}',
-            data: {
-                'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val(),
-                'grand_total': grandTotal,  // Pass grand_total as part of the data
-            },
-            success: function (response) {
-                if (response.status === 'success') {
-                    Swal.fire('Success', 'Coupon removed successfully.', 'success');
-                    $('#apply-coupon-btn').show();
-                    $('#remove-coupon-btn').hide();
-                } else {
-                    alert('No coupon applied.');
-                }
-            },
-            error: function () {
-                alert('An error occurred while removing the coupon.');
+            if (!selectedCoupon) {
+                alert('Please select a coupon before applying.');
+                return;
             }
-        });
-    });
 
-    // ... Rest of your JavaScript code
-  });
+            var token = $('[name="csrfmiddlewaretoken"]').val();
+            var grandTotal = '{{ grand_total }}';
+
+            console.log("Coupon Code:", selectedCoupon);
+            console.log("Token:", token);
+            console.log("Grand Total:", grandTotal);
+
+            $.ajax({
+                method: 'POST',
+                url: '{% url "cart:apply_coupon" %}',
+                data: {
+                    'csrfmiddlewaretoken': token,
+                    'coupon_code': selectedCoupon,
+                    'grand_total': grandTotal
+                },
+                success: function (response) {
+                    if (response.status === 'success') {
+                        console.log("coupon", response.coupon_discount);
+                        // Update coupon discount and other relevant UI elements
+                        updateDiscountUI(response.coupon_discount);
+                        Swal.fire('Success', 'Coupon applied successfully.', 'success');
+                        $('#apply-coupon-btn').hide();
+                        $('#remove-coupon-btn').show();
+                    } else {
+                        alert(`Error: ${response.message}`);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while applying the coupon.');
+                }
+            });
+        });
+
+        // Function to remove the applied coupon
+        $('#remove-coupon-btn').click(function () {
+            // Reset UI elements and remove coupon data from the session
+            resetDiscountUI();
+
+            // Make an AJAX request to remove coupon data from the session on the server side
+            var grandTotal = parseFloat('{{ grand_total }}');
+
+            $.ajax({
+                method: 'POST',
+                url: '{% url "cart:remove_coupon" %}',
+                data: {
+                    'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val(),
+                    'grand_total': grandTotal,  // Pass grand_total as part of the data
+                },
+                success: function (response) {
+                    if (response.status === 'success') {
+                        Swal.fire('Success', 'Coupon removed successfully.', 'success');
+                        $('#apply-coupon-btn').show();
+                        $('#remove-coupon-btn').hide();
+                    } else {
+                        alert('No coupon applied.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while removing the coupon.');
+                }
+            });
+        });
+
+        // Function to update UI elements with the discount value
+        function updateDiscountUI(discount) {
+            $('#coupon-discount').text('$' + discount);
+            $('#coupon-discount-display').text(' Discount: ₹' + discount.toFixed(2));
+            updateFinalTotalUI(discount);
+        }
+
+        // Function to reset UI elements to their initial state
+        function resetDiscountUI() {
+            $('#coupon-discount').text('$0');
+            $('#coupon-discount-display').text(' Discount: ₹0.00');
+            updateFinalTotalUI(0);
+        }
+
+        // Function to update the final total UI element
+        function updateFinalTotalUI(discount) {
+            var grandTotal = parseFloat('{{ grand_total }}');
+            var finalTotal = grandTotal - discount;
+            $('#final-total').text('$' + finalTotal);
+            $('#grand-total').text('Grand Total ₹ ' + finalTotal);
+        }
+
+        // ... Rest of your JavaScript code
+    });
 </script>
 
 
